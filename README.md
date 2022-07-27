@@ -8,16 +8,17 @@
 # React
 React practice
 
-## Table of Contents
+## 01. Table of Contents
 - [Code](#code)
 - [Requirements](#requirements)
   
-## Code
-```
-  hoge
-```
+## 02. Code
+### Material-UI
+`npm install --save --legacy-peer-deps @mui/core @mui/icons-material @mui/system`
+</br>
+※ <a href="https://github.com/deatiger/chatbot-demo">トラハック</a>のでは動かない
   
-## Requirements
+## 03. Requirements
   
  packages in environment: 
 | Name |  Version | Build  Channel  |
