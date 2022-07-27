@@ -13,13 +13,18 @@ React practice
 - [Requirements](#requirements)
   
 ## 02. Code
+### Create react app
+  `yarn create react-app [PROJECT NAME]`
 ### Material-UI
-`npm install --save --legacy-peer-deps @mui/core @mui/icons-material @mui/system`
+`yarn add @material-ui/core @material-ui/system`
+`yarn add @material-ui/icons --network-timeout 500000`
 </br>
-※ <a href="https://github.com/deatiger/chatbot-demo">トラハック</a>のでは動かない
+※ <a href="https://github.com/deatiger/chatbot-demo">トラハック</a>のnpmでは動かなかった。</br>
+※ `--network-timeout 500000`: timeout error回避のため
   
 ## 03. Requirements
   
  packages in environment: 
 | Name |  Version | Build  Channel  |
 | :---: |  :---:  |      :---:      |
+| Material-ui | v4.0 | - |
