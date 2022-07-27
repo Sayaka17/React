@@ -1,7 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import defaultDataset from './dataset';
-import './assets/styles/style.css';
-import { AnswersList } from './components';
+import './assets/styles/style.css'
+import { AnswersList } from './components/index';
 
 // classなので直接export出来る
 // クラスコンポーネント作成
