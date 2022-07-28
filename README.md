@@ -6,7 +6,7 @@
   </a>
  
 # React
-React practice
+React practice <a href="https://github.com/deatiger/chatbot-demo">@deatiger</a>
 
 ## 01. Table of Contents
 - [Code](#code)
@@ -19,12 +19,12 @@ React practice
 `yarn add @material-ui/core @material-ui/system`
 `yarn add @material-ui/icons --network-timeout 500000`
 </br>
-※ <a href="https://github.com/deatiger/chatbot-demo">トラハック</a>のnpmでは動かなかった。</br>
-※ `--network-timeout 500000`: timeout error回避のため
+⚠ `npm install`では動かないので`yarn`を使う</br>
+⚠ `--network-timeout 500000`: timeout error回避のため
   
 ## 03. Requirements
   
  packages in environment: 
-| Name |  Version | Build  Channel  |
-| :---: |  :---:  |      :---:      |
-| Material-ui | v4.0 | - |
+| Name |  Version | Memo |
+| :---: |  :---:  |  :---:  |
+| @Material-ui | v4.0 | 現在は@muiに名称が変わった |
