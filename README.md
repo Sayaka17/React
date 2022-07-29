@@ -10,6 +10,7 @@ React practice <a href="https://github.com/deatiger/chatbot-demo">@deatiger</a>
 
 ## 01. Table of Contents
 - [Code](#code)
+- [Demo](#demo)
 - [Requirements](#requirements)
   
 ## 02. Code
@@ -21,8 +22,15 @@ React practice <a href="https://github.com/deatiger/chatbot-demo">@deatiger</a>
 </br>
 ⚠ `npm install`では動かないので`yarn`を使う</br>
 ⚠ `--network-timeout 500000`: timeout error回避のため
+
+## 03. Demo
+### Demo.1 chat
+<img src="./demo1.png" alt="demo" width=50% height=50%>
+
+### Demo.2 form
+<img src="./demo2.png" alt="demo" width=50% height=50%>
   
-## 03. Requirements
+## 04. Requirements
   
  packages in environment: 
 | Name |  Version | Memo |
