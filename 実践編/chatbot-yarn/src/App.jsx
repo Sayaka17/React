@@ -7,41 +7,31 @@ import FormDialog from './components/Forms/FormDialog';
 // classなので直接export出来る
 // クラスコンポーネント作成
 // React.Componentを継承したクラスであるAppを宣言している
-export default class App extends React.Component {
+const App = () => {
+  const [answers, setAnswers] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [currentId, setCurrentId] = useState("init");
+  const [dataset, setDataset] = useState(defaultDataset);
+  const [open, setOpen] = useState(false);
   // 初期化する
-  constructor(props) {
-    super(props)
-    this.state = {
-      answers: [],
-      chats: [],
-      currentId: "init",
-      dataset: defaultDataset,
-      open: false
-    }
-    this.selectAnswer = this.selectAnswer.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.handleClickOpen = this.handleClickOpen.bind(this)
-  }
+  // this.selectAnswer = this.selectAnswer.bind(this)
+  // this.handleClose = this.handleClose.bind(this)
+  // this.handleClickOpen = this.handleClickOpen.bind(this)
 
-  displayNextQuestion = (nextQuestionId) => {
-    const chats = this.state.chats
-    chats.push({
-      text: this.state.dataset[nextQuestionId].question,
+  const displayNextQuestion = (nextQuestionId, nextDataset) => {
+    addChats({
+      text: dataset[nextQuestionId].question,
       type: 'question'
     })
-
-    this.setState({
-      answers: this.state.dataset[nextQuestionId].answers,
-      chats: chats,
-      currentId: nextQuestionId
-    })
+    setAnswers(nextDataset.answers);
+    setCurrentId(nextQuestionId);
   }
 
   // 回答が選択されたときの挙動
-  selectAnswer = (selectedAnswer, nextQuestionId) => {
+  const selectAnswer = (selectedAnswer, nextQuestionId) => {
     switch (true) {
       case (nextQuestionId === 'init'):
-        setTimeout(() => this.displayNextQuestion(nextQuestionId), 500);
+        setTimeout(() => displayNextQuestion(nextQuestionId, dataset[nextQuestionId]), 500);
         break;
       case (/https:*/.test(nextQuestionId)):
         // aタグを作成
@@ -51,45 +41,49 @@ export default class App extends React.Component {
         a.click();
         break;
       case (nextQuestionId === "contact"):
-        this.handleClickOpen()
+        handleClickOpen()
         break;
       default:
-        const chats = this.state.chats;
-        chats.push({
+        addChats({
           text: selectedAnswer,
           type: 'answer'
         })
 
-        this.setState({
-          chats: chats
-        })
-
-        setTimeout(() => this.displayNextQuestion(nextQuestionId), 1000);
+        setTimeout(() => displayNextQuestion(nextQuestionId, dataset[nextQuestionId]), 1000);
         break;
     }
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true })
+  // 新しいチャットを追加するCallback関数
+  const addChats = useCallback((chat) => {
+    setChats(prevChats => {
+      return [...prevChats, chat]
+    })
+  }, [setChats]);
+
+  const handleClickOpen = () => {
+    setOpen(true)
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+  // 子コンポーネントにpropsで値を渡しているから、callback関数を使用している。パフォーマンスを上げるために
+  const handleClose = useCallback(() => {
+    setOpen(false)
+  }, [setOpen]);
 
   // コンポーネントがマウント(配置)された直後に呼び出されるメソッド => ounting(マウント時)
-  componentDidMount() {
+  useEffect(() => {
     const initAnswer = "";
-    this.selectAnswer(initAnswer, this.state.currentId);
-  }
+    selectAnswer(initAnswer, currentId);
+  }, [])
 
   // コンポーネントが表示されて、Stateの更新を行う期間 => Updating
-  componentDidUpdate() {
+  useEffect(() => {
     const scrollArea = document.getElementById('scroll-area');
     if (scrollArea) {
       scrollArea.scrollTop = scrollArea.scrollHeight;
     }
-  }
+  });
+
 
 
 
@@ -121,17 +115,18 @@ export default class App extends React.Component {
   // render()の中にreturn()で、jsxをreturnする. ライフサイクルやstateを持つ
   // answers = this.state.ansersは、コンストラクタで初期化したやつ。
   // answersに値が入ったら、AnswersListのpropsに値が入る
-  // render()ここで描画される
-  render() {
-    return (
-      <section className='c-section'>
-        <div className="c-box">
-          <Chats chats={this.state.chats} />
-          <AnswersList answers={this.state.answers} select={this.selectAnswer} />
-          <FormDialog  open={this.state.open} handleClose={this.handleClose}/>
-        </div>
-      </section>
-    );
-  }
+  // render()ここで描画される（クラスコンポーネントのとき）
+  // 関数コンポーネントはレンダーをつけなくてもいい
+  return (
+    <section className='c-section'>
+      <div className="c-box">
+        <Chats chats={chats} />
+        <AnswersList answers={answers} select={selectAnswer} />
+        <FormDialog open={open} handleClose={handleClose} />
+      </div>
+    </section>
+  );
 }
 
+
+export default App

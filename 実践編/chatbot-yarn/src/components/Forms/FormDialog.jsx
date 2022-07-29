@@ -39,7 +39,7 @@ export default class FormDialog extends React.Component {
 
         const payload = {
             text:'お問い合わせがありました/n' + 'お名前：' + name + '/n' + 
-                 'E-mail：' + email + '/n' + 'お問い合わせ内容/n' + description
+                 'E-mail: ' + email + '/n' + 'お問い合わせ内容/n' + description
         }
 
         console.log(payload.text);
