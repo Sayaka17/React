@@ -38,7 +38,14 @@ export default class App extends React.Component {
   selectAnswer = (selectedAnswer, nextQuestionId) => {
     switch (true) {
       case (nextQuestionId === 'init'):
-        this.displayNextQuestion(nextQuestionId)
+        setTimeout(() => this.displayNextQuestion(nextQuestionId), 500);
+        break;
+      case (/https:*/.test(nextQuestionId)):
+        // aタグを作成
+        const a = document.createElement('a');
+        a.href = nextQuestionId;
+        a.target = '_blanc';
+        a.click();
         break;
       default:
         const chats = this.state.chats;
@@ -51,16 +58,25 @@ export default class App extends React.Component {
           chats: chats
         })
 
-        this.displayNextQuestion(nextQuestionId);
+        setTimeout(() => this.displayNextQuestion(nextQuestionId), 1000);
         break;
+      }
+    }
+  // コンポーネントがマウント(配置)された直後に呼び出されるメソッド => ounting(マウント時)
+  componentDidMount() {
+        const initAnswer = "";
+        this.selectAnswer(initAnswer, this.state.currentId);
+      }
+      
+  // コンポーネントが表示されて、Stateの更新を行う期間 => Updating
+  componentDidUpdate() {
+    const scrollArea = document.getElementById('scroll-area');
+          if (scrollArea) {
+              scrollArea.scrollTop = scrollArea.scrollHeight;
     }
   }
 
-// 中身を更新
-componentDidMount() {
-  const initAnswer = "";
-  this.selectAnswer(initAnswer, this.state.currentId);
-}
+  
 
 // anwersの中身にデータをセットするような関数
 // initAnswer = () => {
@@ -90,6 +106,7 @@ componentDidMount() {
 // render()の中にreturn()で、jsxをreturnする. ライフサイクルやstateを持つ
 // answers = this.state.ansersは、コンストラクタで初期化したやつ。
 // answersに値が入ったら、AnswersListのpropsに値が入る
+// render()ここで描画される
 render(){
   return (
     <section className='c-section'>
